@@ -1,0 +1,14 @@
+
+[env]
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = "true"
+
+[tasks.default]
+clear = true
+dependencies = ["build"]
+
+[tasks.start]
+description = "Build and start warp server with client on port 8000"
+workspace = false
+command = "cargo"
+args = ["run", "--package", "backend", "frontend"]
+dependencies = ["build"]
