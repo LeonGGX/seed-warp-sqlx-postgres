@@ -1,10 +1,12 @@
 // src/models.rs
 
-use serde::{Deserialize, Serialize};
-use sqlx::{FromRow, PgPool, Row};
 use std::str::FromStr;
 
+use serde::{Deserialize, Serialize};
+
+use sqlx::{FromRow, PgPool, Row};
 use sqlx::postgres::PgRow;
+
 use warp::reply::Response;
 
 #[derive(Serialize, Deserialize, Debug, Clone, FromRow)]
@@ -28,31 +30,7 @@ impl InsertablePerson {
         str.push_str(&self.first_name);
         str
     }
-    /*
-       pub fn add_person(&self, pool: &PgPool) -> Result<Person, sqlx::Error> {
-           let mut tx = pool.acquire();
-           let rec = sqlx::query("INSERT INTO persons (first_name, last_name)
-                   VALUES ( $1, $2 )
-                   RETURNING id, first_name, last_name;"
-           )
-               .bind(&pers.first_name)
-               .bind(&pers.last_name)
-               .map(|row:PgRow| {
-                   Person {
-                       id: row.get(0),
-                       first_name: row.get(1),
-                       last_name: row.get(2)
-                   }
-               })
-               .fetch_one(&mut tx)
-               .await?;
-           tx.commit().await?;
 
-           log::debug!("person added : {:?}", &rec);
-           Ok(rec)
-       }
-
-    */
 }
 
 impl FromStr for InsertablePerson {
@@ -66,7 +44,6 @@ impl FromStr for InsertablePerson {
     }
 }
 
-// this struct will be used to represent database record
 #[derive(Serialize, Deserialize, FromRow, Debug, Eq, PartialEq)]
 pub struct Person {
     pub id: i32,
