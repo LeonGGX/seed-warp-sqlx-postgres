@@ -72,7 +72,7 @@ async fn post_person() {
         .finish();
     tracing::subscriber::set_global_default(subscriber).expect("no global subscriber has been set");
 
-    let db_url = "postgres://postgres:1922leon@localhost/persons";
+    let db_url = "postgres://postgres:password@localhost/persons";
     let pool = db::create_pg_pool(db_url).await.unwrap();
     let api = filters::person_filters(pool);
 
@@ -101,7 +101,7 @@ async fn delete_person() {
         .finish();
     tracing::subscriber::set_global_default(subscriber).expect("no global subscriber has been set");
 
-    let db_url = "postgres://postgres:1922leon@localhost/persons";
+    let db_url = "postgres://postgres:password@localhost/persons";
     let pool = db::create_pg_pool(db_url).await.unwrap();
     let api = filters::person_filters(pool);
 
