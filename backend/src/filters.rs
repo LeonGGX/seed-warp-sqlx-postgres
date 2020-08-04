@@ -1,11 +1,13 @@
 // src/filters
 
-use crate::handlers;
-use crate::models;
 use warp::Filter;
-use sqlx::PgPool;
 use warp::filters::BoxedFilter;
 use warp::reply::Html;
+
+use sqlx::PgPool;
+
+use crate::handlers;
+use crate::models;
 
 
 fn with_db(pool: PgPool) -> impl Filter<Extract = (PgPool,), Error = std::convert::Infallible> + Clone {
