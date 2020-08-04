@@ -4,31 +4,12 @@ use sqlx::postgres::PgRow;
 use sqlx::{PgConnection, PgPool, Row};
 
 use crate::models::{InsertablePerson, Person};
-//use crate::errors;
 
 /// Open a connection to a database
 pub async fn create_pg_pool(db_url: &str) -> sqlx::Result<PgPool> {
     let pool = PgPool::new(db_url).await?;
     Ok(pool)
 }
-
-/*
-pub async fn get_db_con(db_pool: &PgPool) -> anyhow::Result<PgConnection> {
-    db_pool.get().await.map_err(errors::CustError::DBPoolError)
-}
-
-
-fn row_to_person(row: &PgRow) -> Person {
-    let id: i32 = row.get(0);
-    let first_name: String = row.get(1);
-    let last_name: String = row.get(2);
-    Person {
-        id,
-        first_name,
-        last_name,
-    }
-}
-*/
 
 pub async fn list_persons(pool: &PgPool) -> anyhow::Result<Vec<Person>> {
     let mut tx = pool.begin().await?;
