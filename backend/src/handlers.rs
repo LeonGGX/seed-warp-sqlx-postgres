@@ -4,20 +4,19 @@ use std::convert::Infallible;
 use std::error::Error;
 
 use serde::Serialize;
+use serde_json::de::Read;
 
 use sqlx::PgPool;
 
 use warp::http::StatusCode;
-use warp::{reject, Rejection, Reply};
+use warp::{reject, Rejection, reply, Reply};
 
 use crate::db;
 use crate::errors::CustError;
 use crate::models::{InsertablePerson, Person};
-use warp::{reply,};
-use serde_json::de::Read;
 
 
-pub(crate) async fn find_person_by_id_hdler(
+pub async fn find_person_by_id_hdler(
     id: i32,
     pool: PgPool,
 ) -> Result<impl Reply, Rejection> {
@@ -98,8 +97,6 @@ struct ErrorMessage {
     message: String,
 }
 
-// This function receives a `Rejection` and tries to return a custom
-// value, otherwise simply passes the rejection along.
 pub async fn handle_rejection(err: Rejection) -> Result<impl Reply, Infallible> {
     let code;
     let message;
